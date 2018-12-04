@@ -10,7 +10,10 @@ public class SphereMove : MonoBehaviour
     [SerializeField] Rigidbody Spher;
 
     //граница по ширине
-    private int _xborder = GameplayConstants.rowWidth; 
+    private int _xborder = GameplayConstants.rowWidth;
+
+    private int _yborderfrom = GameplayConstants.groundFrom;
+    private int _yborderto = GameplayConstants.groundTo;
 
     void Start ()
     {
@@ -61,14 +64,13 @@ public class SphereMove : MonoBehaviour
     //передаём на этот метод новое положение игрока, и если это положение за границей, возвращает true
     private bool IsItNotBorder(Vector3 inputPosition)
     {
-        
-        if ( (inputPosition.x > 0 ? inputPosition.x : 0 - inputPosition.x) >  (float) _xborder / 2)
-        {
-            Debug.Log("border position!");
+        return AbsoluteNumber(inputPosition.x) < (float) _xborder / 2
+               && inputPosition.y >= _yborderfrom
+               && inputPosition.y <= _yborderto;
+    }
 
-            return false;
-        }
-
-        return true;
+    private static float AbsoluteNumber(float inputNumber)
+    {
+        return inputNumber > 0 ? inputNumber : 0 - inputNumber;
     }
 }
