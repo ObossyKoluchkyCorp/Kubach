@@ -11,6 +11,7 @@ public class GenerateBoxes : MonoBehaviour {
     public Text score;
     public GameMaker gameMaker;
     public List<GameObject> world;
+    private int scoreCounter = 0;
 
     // Use this for initialization
     void Start () {
@@ -35,7 +36,8 @@ public class GenerateBoxes : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        score.text = string.Format(" benis");
+        if (gameMaker.CheckGameOver())
+            score.text = string.Format(" " + ++scoreCounter);
 
 //        gameMaker.UpdateTheWorld();
         
@@ -46,6 +48,6 @@ public class GenerateBoxes : MonoBehaviour {
             o.transform.position += Vector3.back * GameplayConstants.GameSpeedMultiplier;
         }
 
-        gameMaker.CheckGameOver();
+        ;
     }
 }
