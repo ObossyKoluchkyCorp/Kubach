@@ -12,4 +12,9 @@
         z = zInput;
         obstacle = isObstacleHere;
     }
+
+    public void SetObstacle(bool isItObstacle)
+    {
+        obstacle = isItObstacle;
+    }
 }

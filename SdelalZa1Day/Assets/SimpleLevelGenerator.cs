@@ -6,11 +6,11 @@ public class SimpleLevelGenerator : ILevelGenerator
     public Level Generate(int rowWidth, int groundFrom, int groundTo)
     {
         var level = new Level();
-        const int levelSize = 100;
+        var levelSize = GameplayConstants.levelSize;
         var objectsCollection = new List<LevelObject>();
         var xShift = 0 - rowWidth / 2;
 
-        Debug.Log("SimpleLevelGenerator. Start to generate the simple level.");
+        Debug.Log("SimpleLevelGenerator. Start to generate a simple level.");
         
         
         for (var z = 0; z < levelSize; z++)
@@ -19,7 +19,7 @@ public class SimpleLevelGenerator : ILevelGenerator
             {
                 for (var y = groundFrom; y < groundTo; y++)
                 {
-                    var levelObject = new LevelObject(x + xShift, y, z, true);
+                    var levelObject = new LevelObject(x + xShift, y, z, (Random.Range(0,10) > 5));
                     
                     objectsCollection.Add(levelObject);                    
                 }
@@ -31,5 +31,10 @@ public class SimpleLevelGenerator : ILevelGenerator
         Debug.Log("Level generation has completed!");
         
         return level;
+    }
+
+    private bool CreateThePath(LevelObject currentObject, List<GameObject> alreadyExistedObjects)
+    {
+        return true;
     }
 }

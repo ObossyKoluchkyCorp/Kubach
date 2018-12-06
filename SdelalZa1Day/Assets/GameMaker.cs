@@ -11,37 +11,44 @@ public class GameMaker
     private int _groundTo;
     private ILevelGenerator _levelGenerator;
     private IGameRules _gameRules;
-    private IDisplay _display;
+    private IWorldCreator _worldCreator;
     private Level _level;
     private List<GameObject> _createdWorld;
+    private GameObject _player;
 
-    public GameMaker(int rowCount, int rowWidth, int groundFrom, int groundTo,
-                     ILevelGenerator levelGenerator, IGameRules gameRules, IDisplay display)
+    public GameMaker(int rowCount, int rowWidth, int groundFrom, int groundTo, GameObject player,
+                     ILevelGenerator levelGenerator, IGameRules gameRules, IWorldCreator worldCreator)
     {
         _rowCount = rowCount;
         _rowWidth = rowWidth;
         _groundFrom = groundFrom;
         _groundTo = groundTo;
-        _display = display;
+        _worldCreator = worldCreator;
+        _player = player;
 
         _levelGenerator = levelGenerator;
         _gameRules = gameRules;
 
-        Debug.Log("New game, GameMaker was initialised.");
+        Debug.Log("New game, GameMaker constructor.");
     }
 
     public void LoadTheLevel()
     {
-        Debug.Log("Creating a pretty order of wonderful cubes");
+        Debug.Log("GameMaker, LoadTheLevel()");
         
         _level = _levelGenerator.Generate(_rowWidth, _groundFrom, _groundTo);
     }
 
-    public void Display()
+    public void InitializeTheWorld()
     {
-       _createdWorld = _display.CreateWorld(_level);
+       _createdWorld = _worldCreator.CreateWorld(_level);
     }
 
+    public void UpdateTheWorld()
+    {
+        _createdWorld = _worldCreator.UpdateTheWorld(_level, _createdWorld);
+    }
+        
     public List<GameObject> GetCreatedWorldObjects()
     {
         if (_createdWorld == null)
@@ -49,11 +56,17 @@ public class GameMaker
         
         return _createdWorld;
     }
+
+    public bool CheckGameOver()
+    {
+        return _gameRules.CheckGameOver(_player, _createdWorld);
+    }
 }
 
-public interface IDisplay
+public interface IWorldCreator
 {
     List<GameObject> CreateWorld(Level level);
+    List<GameObject> UpdateTheWorld(Level level, List<GameObject> createdWorld);
 }
 
 public interface ILevelGenerator
@@ -63,9 +76,5 @@ public interface ILevelGenerator
 
 public interface IGameRules
 {
-}
-
-public class SimpleGameRules : IGameRules
-{
-    
+    bool CheckGameOver(GameObject player, List<GameObject> createdWorld);
 }

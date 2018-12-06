@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -15,16 +16,44 @@ public class Level
         
         if (_objectsCollection == null)
             throw new ArgumentNullException("Collection cant be null!");
-        
-            foreach (var o in _objectsCollection)
+
+        foreach (var o in _objectsCollection)
+        {
+            if (o.z == rowNumber)
             {
-                if (o.z == rowNumber)
-                    result.Add(o);
+                result.Add(o);
             }
+        }
 
         return result;
     }
+    
+    //не работает
+    public List<LevelObject> GetRowStackLike()
+    {
+        var result = new List<LevelObject>();
+        
+        if (_objectsCollection == null)
+            throw new ArgumentNullException("Collection cant be null!");
 
+        var lastRow = _objectsCollection.Min(o => o.z);
+        
+        foreach (var o in _objectsCollection)
+        {
+            if (o.z == lastRow)
+            {
+                result.Add(o);
+            }
+        }
+
+        foreach (var o in result)
+        {
+            _objectsCollection.Remove(o);
+        }
+
+        return result;
+    }
+    
     public void SetLevel(List<LevelObject> levelObjectCollection)
     {
         if (_objectsCollection != null)
@@ -32,4 +61,16 @@ public class Level
 
         _objectsCollection = levelObjectCollection;
     }
+
+    //ydolit
+//    public static LevelObject GetObject(int x, int y, int z, List<LevelObject> someWorld)
+//    {
+//        foreach (var o in someWorld)
+//        {
+//            if (o.y == y && o.x == x && o.z == z)
+//                return o;
+//        }
+//
+//        return null;
+//    }
 }
