@@ -48,6 +48,6 @@ public class GenerateBoxes : MonoBehaviour {
             o.transform.position += Vector3.back * GameplayConstants.GameSpeedMultiplier;
         }
 
-        ;
+        
     }
 }
