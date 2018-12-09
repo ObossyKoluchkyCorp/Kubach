@@ -35,19 +35,14 @@ public class GenerateBoxes : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-        if (gameMaker.CheckGameOver())
-            score.text = string.Format(" " + ++scoreCounter);
-
-//        gameMaker.UpdateTheWorld();
-        
-        world = gameMaker.GetCreatedWorldObjects();
-        
+    void Update ()
+    {
+        if (gameMaker.CheckGameOver()) return;
+        score.text = string.Format(" " + ++scoreCounter);
+            
         foreach (var o in world)
         {
             o.transform.position += Vector3.back * GameplayConstants.GameSpeedMultiplier;
         }
-
-        
     }
 }

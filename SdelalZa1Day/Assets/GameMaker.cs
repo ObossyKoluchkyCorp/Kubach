@@ -61,6 +61,12 @@ public class GameMaker
     {
         return _gameRules.CheckGameOver(_player, _createdWorld);
     }
+
+    public bool ShouldTheWorldBeUpdated()
+    {
+        
+        return false;
+    }
 }
 
 public interface IWorldCreator
