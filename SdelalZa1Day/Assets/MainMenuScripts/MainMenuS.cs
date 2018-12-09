@@ -8,7 +8,7 @@ public class MainMenuS : MonoBehaviour {
 
     [Header("Настройки (Главного меню):")]
     [SerializeField] public GameObject PlayB;
-    [SerializeField] public GameObject SettingsB;
+    [SerializeField] public GameObject OptionsB;
     [SerializeField] public GameObject DevelopersB;
     [SerializeField] public GameObject ExitB;
 
@@ -16,33 +16,7 @@ public class MainMenuS : MonoBehaviour {
     [SerializeField] public GameObject PanelS;
     [SerializeField] public Dropdown DropDown;
     [SerializeField] public Dropdown DropGrafics;
-    [SerializeField] bool isFullScreen;
-
-    [Header("Настройки звука:")]
-    [SerializeField] public Slider slider;
-    [SerializeField] Text valueCount;
-    [SerializeField] public GameObject Sounds;
-    [SerializeField] public AudioClip Clip;
-
-    //Для звука (ЗВ)
-    private Button button { get { return GetComponent<Button>(); } }
-    private AudioSource source { get { return GetComponent<AudioSource>(); } }
-
-    void Start()
-    {
-        //(ЗВ)
-        gameObject.AddComponent<AudioSource>();
-        source.clip = Clip;
-        source.playOnAwake = false;
-        //button.onClick.AddListener(() => ClickSounds());
-    }
-
-    void Update()
-    {
-        //(ЗВ)
-        valueCount.text = slider.value.ToString();
-        AudioListener.volume = slider.value;
-    }
+    [SerializeField] bool isFullScreen;  
 
     public void Play()//Запуск главной сцены (1).
     {
@@ -53,7 +27,7 @@ public class MainMenuS : MonoBehaviour {
     public void Settings()//При нажатии на кнопку Settings включается панель с настройками
     {
         PlayB.SetActive(false);
-        SettingsB.SetActive(false);
+        OptionsB.SetActive(false);
         DevelopersB.SetActive(false);
         ExitB.SetActive(false);
         PanelS.SetActive(true);
@@ -119,7 +93,7 @@ public class MainMenuS : MonoBehaviour {
     public void Apply()//При нажатии на кнопку Apply выключается панель с настройками и включается главное меню
     {
         PlayB.SetActive(true);
-        SettingsB.SetActive(true);
+        OptionsB.SetActive(true);
         DevelopersB.SetActive(true);
         ExitB.SetActive(true);
         PanelS.SetActive(false);
