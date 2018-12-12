@@ -24,7 +24,7 @@ public class GenerateBoxes : MonoBehaviour {
                                     Player,
                                     new SimpleLevelGenerator(),
                                     new SimpleGameRules(),
-                                    new StupidDisplay()            );
+                                    new InfiniteWorldCreator()            );
         
         gameMaker.LoadTheLevel();
         
@@ -38,11 +38,14 @@ public class GenerateBoxes : MonoBehaviour {
     void Update ()
     {
         if (gameMaker.CheckGameOver()) return;
+        
         score.text = string.Format(" " + ++scoreCounter);
             
         foreach (var o in world)
         {
             o.transform.position += Vector3.back * GameplayConstants.GameSpeedMultiplier;
         }
+        
+        gameMaker.UpdateTheWorld();
     }
 }

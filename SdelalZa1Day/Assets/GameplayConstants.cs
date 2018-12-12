@@ -20,4 +20,7 @@ public class GameplayConstants : MonoBehaviour
     
     //множитель скорости движения
     public const float GameSpeedMultiplier = 0.05f;
+
+    //координата первого ряда
+    public const int FirstRowZCoordinate = 10;
 }

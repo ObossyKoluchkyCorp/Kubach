@@ -10,6 +10,10 @@ public class SimpleGameRules : IGameRules
         if (!DoesPlayerCollidesWithTheLevel(player, createdWorld)) return false;
         
         _theObject.transform.position += Vector3.up;
+
+        //the way to delete objects from the scene
+//        GameObject.Destroy(_theObject, 0.1f);
+        
         return true;
 
     }
