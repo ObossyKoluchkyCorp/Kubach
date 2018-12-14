@@ -17,6 +17,7 @@ public class GenerateBoxes : MonoBehaviour {
     void Start () {
         Debug.Log("init of GenerateBoxes.cs");
 
+        //GameplayConstants should be a init class, where I should put all numbers and use the instance
         gameMaker = new GameMaker(  GameplayConstants.rowCount,
                                     GameplayConstants.rowWidth,
                                     GameplayConstants.groundFrom,
@@ -26,24 +27,35 @@ public class GenerateBoxes : MonoBehaviour {
                                     new SimpleGameRules(),
                                     new InfiniteWorldCreator()            );
         
+        GameplayConstants.SetGameOver(false);
+        
         gameMaker.LoadTheLevel();
         
         gameMaker.InitializeTheWorld();
 
         world = gameMaker.GetCreatedWorldObjects();
-        
     }
 
     // Update is called once per frame
     void Update ()
     {
-        if (gameMaker.CheckGameOver()) return;
+        if (GameplayConstants.isGameOver) return;
+        
+        if (gameMaker.CheckGameOver())
+        {
+            GameplayConstants.SetGameOver(true);
+            return;
+        }
         
         score.text = string.Format(" " + ++scoreCounter);
             
-        foreach (var o in world)
+        if (!(Input.GetKey(KeyCode.Space)))
         {
-            o.transform.position += Vector3.back * GameplayConstants.GameSpeedMultiplier;
+            foreach (var o in world)
+            {
+                o.transform.position += Vector3.back * GameplayConstants.GameSpeedMultiplier;
+            }
+            
         }
         
         gameMaker.UpdateTheWorld();

@@ -26,7 +26,9 @@ public class SphereMove : MonoBehaviour
         Spher = GetComponent<Rigidbody>();
         Spher.constraints = RigidbodyConstraints.FreezePositionZ; //Фризим позицию на z 
 
-
+        //check is the game over, and if it is, don't go any further
+        if (GameplayConstants.isGameOver) return;
+        
         if (Input.GetKeyDown(KeyCode.D)) 
         {
             //transform.position += Vector3.right * speed * Time.deltaTime;

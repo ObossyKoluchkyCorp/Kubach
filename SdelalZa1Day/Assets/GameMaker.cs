@@ -15,6 +15,7 @@ public class GameMaker
     private Level _level;
     private List<GameObject> _createdWorld;
     private GameObject _player;
+    private bool _gameOver;
 
     public GameMaker(int rowCount, int rowWidth, int groundFrom, int groundTo, GameObject player,
                      ILevelGenerator levelGenerator, IGameRules gameRules, IWorldCreator worldCreator)
@@ -59,7 +60,11 @@ public class GameMaker
 
     public bool CheckGameOver()
     {
-        return _gameRules.CheckGameOver(_player, _createdWorld);
+        var theAnswer = _gameRules.CheckGameOver(_player, _createdWorld);
+        
+        if (theAnswer) _gameOver = theAnswer;
+        
+        return theAnswer;
     }
 
     public bool ShouldTheWorldBeUpdated()
