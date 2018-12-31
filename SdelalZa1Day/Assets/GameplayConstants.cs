@@ -23,4 +23,11 @@ public class GameplayConstants : MonoBehaviour
 
     //координата первого ряда
     public const int FirstRowZCoordinate = 10;
+    
+    public static bool isGameOver { get; private set; }
+
+    public static void SetGameOver(bool inputBool)
+    {
+        isGameOver = inputBool;
+    }
 }

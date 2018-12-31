@@ -5,7 +5,7 @@ public class InfiniteWorldCreator : IWorldCreator
 {
     private int startZcoordinate;
     private float _theBiggestZCoordinate;
-    private float _coordinate = 10.0f;
+    private float _coordinate = 35.0f;
     private Vector3 _scale = new Vector3(0.9f, 0.9f, 0.9f);
     
     //rewrite this please, Sasha!
